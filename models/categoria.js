@@ -14,6 +14,20 @@ class categoria{
       throw new error ("Error al consultar las categorias")
     }
   }
+  async postAll() {
+    try {
+      const[result] = await connection.query("INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)",[this.nombre, this.descripcion]
+      )
+       return {
+        id: result.insertId,
+        nombre: this.nombre,
+        descripcion: this.descripcion
+      };
+    } catch (error) {
+       throw new Error("Error al insertar la categoría");
+    }
+  }
 }
+
 
 export default categoria;

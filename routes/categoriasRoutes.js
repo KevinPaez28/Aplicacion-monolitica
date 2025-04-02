@@ -7,8 +7,6 @@ exportar.put('/:id', (req, res) => {
  })
 exportar.get('/', categoriaController.getAllcategorias)
 
- exportar.post('/', (req, res)=>{
-console.log (req.body)
- })
+exportar.post('/', categoriaController.postAllcategorias)
 
 export default exportar;
