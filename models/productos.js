@@ -29,5 +29,35 @@ class producto{
       throw new error ("Error al consultar las categorias")
     }
   }
+  async patchAll(id, newData) {
+    try {
+      for (const key in newData) {
+        const [result] = await connection.query(`UPDATE productos SET ${key} = ?  where id = ?`, [newData[key], id]);
+       }
+       const [imprimir] = await connection.query("SELECT * FROM productos where id =?",[id])
+      return imprimir; 
+    } catch (error) {
+      throw new Error("Error al actualizar la categoria")
+    }
+  }
+  async putAll(nombre,descripcion,precio,categoria_id,id) {
+    try {
+      const [result] = await connection.query(`UPDATE productos SET nombre = ? ,descripcion = ? ,precio=?,categoria_id = ? where id = ?`,[nombre, descripcion,precio,categoria_id,id])
+      if (result.affectedRows === 0) {
+       throw new Error("Categoria no encontrada")
+      }
+      return { id, nombre , descripcion,precio,categoria_id }
+    } catch (error) {
+       throw new Error("Error al modificar la categoría");
+    }
+  }
+  async deleteAll(id) {
+     try {
+      const [result] = await connection.query(`DELETE FROM productos WHERE id =?`, [id])
+      return result;
+    } catch (error) {
+       throw new Error("Error al eliminar la categoria")
+    }
+  }
 }
 export default producto;
