@@ -8,8 +8,8 @@ class productosController{
   }
     static postAllproductos = async (req, res) => {
     const { nombre, descripcion,precio,categoria_id } = req.body;
-    const OBJproductos = new producto(nombre, descripcion,precio,categoria_id);
-    const productos = await OBJproductos.postAll();
+    const OBJproductos = new producto();
+    const productos = await OBJproductos.postAll(nombre, descripcion,precio,categoria_id);
     res.status(201).json(productos);
   }
 
@@ -19,7 +19,7 @@ class productosController{
     try { 
       const OBJproducto = new producto();
       const productos = await OBJproducto.patchAll(id,newData);
-      res.json(productos)
+    res.status(201).json(productos);
     } catch (error) {
       res.status(500).json({ error: error.message });  
     }
@@ -31,7 +31,7 @@ class productosController{
     try{
       const OBJproductos = new producto(nombre, descripcion,precio,categoria_id);
       const productos = await OBJproductos.putAll(nombre,descripcion,precio,categoria_id,id);
-      res.json(productos)
+    res.status(201).json(productos);
     } catch (error) {
       res.status(500).json({error: error.message})
     }
