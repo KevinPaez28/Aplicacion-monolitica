@@ -24,7 +24,7 @@ class categoriaController{
     try{
       const OBJcategoria = new categoria(nombre, descripcion);
       const categorias = await OBJcategoria.putAll(nombre,descripcion,id);
-      res.json(categorias)
+      res.status(200).json(categorias);
     } catch (error) {
       res.status(500).json({error: error.message})
     }
@@ -37,7 +37,7 @@ class categoriaController{
     try { 
       const OBJcategoria = new categoria();
       const categorias = await OBJcategoria.patchAll(id,newData);
-      res.json(categorias)
+      res.status(200).json(categorias);
     } catch (error) {
       res.status(500).json({ error: error.message });  
     }
@@ -48,7 +48,7 @@ class categoriaController{
     try { 
       const OBJcategoria = new categoria();
       const categorias = await OBJcategoria.deleteAll(id);
-      res.json(categorias)
+      res.status(200).json(categorias);
     } catch (error) {
       res.status(500).json({ error: error.message });  
     }

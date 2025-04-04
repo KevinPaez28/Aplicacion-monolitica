@@ -11,9 +11,10 @@ class categoria{
       const [rows] = await connection.query("SELECT * FROM categorias");
       return rows;
     } catch (error) {
-      throw new error ("Error al consultar las categorias")
+      throw new Error ("Error al consultar las categorias")
     }
   }
+
   async postAll(nombre,descripcion) {
     try {
       const[result] = await connection.query("INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)",[nombre,descripcion]
@@ -27,6 +28,7 @@ class categoria{
        throw new Error("Error al insertar la categoría");
     }
   }
+
   async putAll(nombre,descripcion,id) {
     try {
       const [result] = await connection.query(`UPDATE categorias SET nombre = ? ,descripcion = ?  where id = ?`,[nombre, descripcion,id])
@@ -38,6 +40,7 @@ class categoria{
        throw new Error("Error al modificar la categoría");
     }
   }
+
   async patchAll(id, newData) {
     try {
       for (const key in newData) {
@@ -49,12 +52,19 @@ class categoria{
       throw new Error("Error al actualizar la categoria")
     }
   }
-  async deleteAll(id) {
+  async validarcategoria(categoria_id) {
+    const [rows] = await connection.query("SELECT * FROM productos WHERE categoria_id = ?", [categoria_id]);
+    return rows.length>0;
+  }
+
+  async deleteAll (id) {
     try {
-      const [result] = await connection.query(`DELETE FROM categoria WHERE id =?`, [id])
-      return result;
+      if (await this.validarcategoria(id)) {
+        throw new Error("no se puede eliminar la categoria porque tiene productos asosiados")
+      }
+      const [result] = await connection.query(`DELETE FROM categorias WHERE id = ?`, [id])
     } catch (error) {
-       throw new Error("Error al eliminar la categoria")
+       throw new Error(error)
     }
   }
 }
