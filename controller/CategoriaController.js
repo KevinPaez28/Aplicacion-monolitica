@@ -53,6 +53,16 @@ class categoriaController{
       res.status(500).json({ error: error.message });  
     }
   }
+  static categoriabyId = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const OBJcategoria = new categoria();
+      const categorias = await OBJcategoria.Agruparall(id);
+      res.status(200).json(categorias);
+    } catch (error) {
+       res.status(500).json({ error: error.message });  
+    }
+  }
 }
 
 

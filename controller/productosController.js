@@ -37,7 +37,7 @@ class productosController{
     }
   }
   static deleteAllproductos = async (req, res) => {
-    const { id } = req.params;
+     const { id } = req.params;
     try { 
       const OBJproducto = new producto();
       const productos = await OBJproducto.deleteAll(id);

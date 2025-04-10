@@ -67,6 +67,16 @@ class categoria{
        throw new Error(error)
     }
   }
+  async Agruparall(id) {
+     try {
+       const [rows] = await connection.query('SELECT * FROM categorias WHERE id = ?',[id]);
+      //  const [productos] = await connection.query('SELECT * FROM productos where categoria_id = ?' ,[id])
+      return rows
+      //  console.log(productos.categoria_id);
+    } catch (error) {
+      throw new Error ("Error al consultar las categorias")
+    }
+  }
 }
 
 

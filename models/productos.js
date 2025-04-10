@@ -47,10 +47,13 @@ class producto{
   }
   async deleteAll(id) {
      try {
-      const [result] = await connection.query(`DELETE FROM productos WHERE id =?`, [id])
+       const [result] = await connection.query(`DELETE FROM productos WHERE id =?`, [id])
+      if (result.affectedRows === 0) {
+       throw new Error("producto no encontrado")
+       }
       return result;
     } catch (error) {
-       throw new Error("Error al eliminar la categoria")
+       throw new Error(error)
     }
   }
 }
