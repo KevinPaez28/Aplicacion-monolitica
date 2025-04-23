@@ -1,4 +1,5 @@
 import categoria from "../models/categoria.js"
+import CategoriasProductos from "../services/CategoriasProductos.js";
 
 class categoriaController{
   static getAllcategorias = async (req, res) => { 
@@ -53,16 +54,16 @@ class categoriaController{
       res.status(500).json({ error: error.message });  
     }
   }
-  static categoriabyId = async (req, res) => {
+  static getbyId = async (req, res) => {
     const { id } = req.params;
     try {
-      const OBJcategoria = new categoria();
-      const categorias = await OBJcategoria.Agruparall(id);
+      const OBJcategoriaproducto = new CategoriasProductos()
+      const categorias = await OBJcategoriaproducto.getCategoriaProductos(id);
       res.status(200).json(categorias);
     } catch (error) {
-       res.status(500).json({ error: error.message });  
+      
     }
-  }
+  } 
 }
 
 

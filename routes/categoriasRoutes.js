@@ -13,6 +13,6 @@ exportar.patch('/:id', categoriaController.patchAllcategorias)
 
 exportar.delete('/:id', categoriaController.deleteAllcategorias)
 
-exportar.get('/:id', categoriaController.categoriabyId)
+exportar.get('/:id', categoriaController.getbyId)
 
 export default exportar;

@@ -56,5 +56,15 @@ class producto{
        throw new Error(error)
     }
   }
+  async getbycategoria_id(categoria_id) {
+    try {
+      const [result] = await connection.query('SELECT * FROM productos WHERE categoria_id = ?', [categoria_id])
+      if (result.length == 0) {
+        return "No hay productos asociados a esta categoria"
+      }else return result
+    } catch (error) {
+      
+    }
+  }
 }
 export default producto;
